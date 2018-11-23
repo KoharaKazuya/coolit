@@ -1,5 +1,6 @@
 /node_modules
 /dist
+/coverage
 /package-lock.json
 /yarn.lock
-/.rts2_cache*
+/.rpt2_cache*
