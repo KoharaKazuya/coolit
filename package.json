@@ -1,0 +1,28 @@
+{
+  "name": "coolit",
+  "version": "0.1.0",
+  "author": "KoharaKazuya <reflect.results@gmail.com>",
+  "devDependencies": {
+    "jest": "^23.0.0",
+    "microbundle": "^0.7.0",
+    "prettier": "^1.0.0",
+    "tslint": "^5.0.0",
+    "tslint-config-prettier": "^1.0.0",
+    "typescript": "^3.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "main": "dist/coolit.umd.js",
+  "module": "dist/coolit.mjs",
+  "scripts": {
+    "build": "microbundle --no-sourcemap --format=umd,es ./src/coolit.ts",
+    "build:watch": "microbundle --no-sourcemap --format=umd,es ./src/coolit.ts --watch",
+    "format": "prettier --write './{src,test}/**/*.{js,ts}'",
+    "lint": "tslint --project ./tsconfig.json",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "types": "dist/coolit.d.ts"
+}
