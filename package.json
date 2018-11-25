@@ -1,11 +1,15 @@
 {
   "name": "coolit",
+  "description": "Reduce JavaScript CPU usage by asynchronous iteration.",
   "version": "0.1.0",
   "author": "KoharaKazuya <reflect.results@gmail.com>",
   "babel": {
     "presets": [
       "@babel/preset-env"
     ]
+  },
+  "bugs": {
+    "url": "https://github.com/KoharaKazuya/coolit/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -23,9 +27,20 @@
   "files": [
     "dist"
   ],
+  "homepage": "https://github.com/KoharaKazuya/coolit#readme",
+  "keywords": [
+    "async",
+    "asynciterator",
+    "chillout",
+    "cpu",
+    "iterate",
+    "iterator",
+    "promise"
+  ],
   "license": "MIT",
   "main": "dist/coolit.umd.js",
   "module": "dist/coolit.mjs",
+  "repository": "KoharaKazuya/coolit",
   "scripts": {
     "build": "rollup --config",
     "build:watch": "rollup --config --watch",

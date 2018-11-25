@@ -1,4 +1,9 @@
-const { coolit, intervalMind, throttleMind } = require("../dist/coolit.umd");
+const {
+  coolit,
+  animationFrameMind,
+  intervalMind,
+  throttleMind
+} = require("../dist/coolit.umd");
 
 const timeoutRunner = async (iter, timeout) => {
   let running = true;
@@ -9,6 +14,41 @@ const timeoutRunner = async (iter, timeout) => {
     if (!running) break;
   }
 };
+
+describe("README Example", () => {
+  test("Bloking Style with ES2018 Async Iterators", async () => {
+    let sum = 0;
+    for await (const i of coolit([1, 2, 3, 4, 5])) {
+      sum += i;
+    }
+    expect(sum).toBe(15);
+  });
+
+  test("Bloking Style without ES2018 Async Iterators", async () => {
+    let sum = 0;
+    const iter = coolit([1, 2, 3, 4, 5]);
+    for (;;) {
+      const { value: i, done } = await iter.next();
+      if (done) break;
+      // heavy task
+      sum += i;
+    }
+    expect(sum).toBe(15);
+  });
+
+  test("Callback Style with ES2018 Async Iterators", async () => {
+    let sum = 0;
+    function* heavyTask() {
+      for (const i of [1, 2, 3, 4, 5]) {
+        yield;
+        sum += i;
+      }
+    }
+    for await (const _ of coolit(heavyTask())) {
+    }
+    expect(sum).toBe(15);
+  });
+});
 
 describe("Coolit Engine", () => {
   test("coolit() is an AsyncIterable", async () => {
@@ -71,6 +111,26 @@ describe("Coolit Engine", () => {
 
 describe("Coolit Mind", () => {
   describe("idleMind", () => {});
+
+  describe("animationFrameMind", () => {
+    test("animationFrameMind has blank time", async () => {
+      let count = 0;
+      await timeoutRunner(
+        coolit(
+          (function*() {
+            for (;;) {
+              count++;
+              yield;
+            }
+          })(),
+          { mind: animationFrameMind() }
+        ),
+        1000
+      );
+      expect(count).toBeGreaterThan(10);
+      expect(count).toBeLessThan(150);
+    });
+  });
 
   describe("intervalMind", () => {
     test("intervalMind has blank time", async () => {
